@@ -6,7 +6,12 @@
   };
 
   outputs = { self, nixpkgs, ... }: {
-    packages."x86_64-linux".default = nixpkgs.legacyPackages."x86_64-linux".swaylock-effects;
+
+    nixosModules.default = { pkgs, ... }: {
+      environment.sessionVariables = rec {
+        BURYOS_SHELL_LOCK = "swaylock";
+      };
+    };
 
     # Home-manager support
     homeManagerModules.default = { pkgs, ... }: {
